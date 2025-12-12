@@ -1,0 +1,12 @@
+2025-12-11 23:34:52.437 | INFO     | ai_core:__init__:85 - 🔥 PyTorch device: cpu
+2025-12-11 23:34:52.612 | INFO     | ai_core:__init__:93 - ✅ AI Service initialized successfully
+2025-12-11 23:34:52.614 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:34:54.345 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 1.73s
+2025-12-11 23:34:54.346 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:34:55.040 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 0.69s
+2025-12-11 23:34:55.041 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:34:55.940 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 0.90s
+2025-12-11 23:34:55.940 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:34:56.694 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 0.75s
+2025-12-11 23:34:56.695 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:34:58.006 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 1.31s

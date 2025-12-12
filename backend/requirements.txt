@@ -1,5 +1,35 @@
-fastapi
-uvicorn
-python-dotenv
-groq
-pydantic
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-dotenv==1.0.0
+pydantic==2.5.0
+
+# AI & LLM
+groq==0.4.1
+torch==2.1.0
+transformers==4.36.0
+sentence-transformers==2.2.2
+langchain==0.1.0
+langchain-groq==0.0.1
+
+# Utilities
+numpy==1.24.3
+tiktoken==0.5.2
+
+# Database & Storage
+sqlalchemy==2.0.23
+aiosqlite==0.19.0
+
+# API & Middleware
+python-multipart==0.0.6
+cors==1.0.1
+
+# Monitoring
+loguru==0.7.2
+
+# Voice & Audio
+edge-tts==6.1.9
+SpeechRecognition==3.10.1
+pydub==0.25.1
+pyaudio==0.2.14
+openai==1.58.1

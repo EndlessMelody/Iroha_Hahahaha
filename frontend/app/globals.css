@@ -1,0 +1,671 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== STUDYGRAM DESIGN SYSTEM ===== */
+
+:root {
+  color-scheme: light dark;
+}
+
+/* === Base Styles - Light Mode === */
+body {
+  scroll-behavior: smooth;
+  background-color: #f9f0e5;
+  background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
+  font-family: "Patrick Hand", "Mali", system-ui, sans-serif;
+  color: #1f2937;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 0.01em;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === Dark Mode Base === */
+.dark body,
+body.dark {
+  background-color: #1a1a2e;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+  color: #e2e8f0;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #1a1a2e;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+  color: #e2e8f0;
+}
+
+/* === Typography === */
+.font-script {
+  font-family: "Pacifico", cursive;
+}
+
+.font-hand {
+  font-family: "Mali", cursive;
+}
+
+.font-note {
+  font-family: "Patrick Hand", cursive;
+}
+
+/* Sunset gradient title effect */
+.title-sunset {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.2);
+}
+
+/* === Highlight Markers (Pastel) === */
+.hl-yellow {
+  background: linear-gradient(
+    to top,
+    rgba(255, 245, 157, 0.9) 55%,
+    transparent 55%
+  );
+  padding: 0.02em 0.14em;
+}
+
+.hl-blue {
+  background: linear-gradient(
+    to top,
+    rgba(179, 229, 252, 0.9) 55%,
+    transparent 55%
+  );
+  padding: 0.02em 0.14em;
+}
+
+.hl-pink {
+  background: linear-gradient(
+    to top,
+    rgba(255, 205, 210, 0.9) 55%,
+    transparent 55%
+  );
+  padding: 0.02em 0.14em;
+}
+
+.hl-green {
+  background: linear-gradient(
+    to top,
+    rgba(200, 230, 201, 0.9) 55%,
+    transparent 55%
+  );
+  padding: 0.02em 0.14em;
+}
+
+/* === Dot Grid Background === */
+.dot-grid {
+  background-image: radial-gradient(#d7c2a8 0.9px, transparent 0.9px);
+  background-size: 18px 18px;
+}
+
+/* === Sticky Note === */
+.sticky-note {
+  position: relative;
+  width: min(280px, 100%);
+  min-height: 180px;
+  padding: 32px 18px 20px;
+  background-color: #fff9c4;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sticky-note:hover {
+  transform: scale(1.03) rotate(0deg) !important;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.sticky-note::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 25px;
+  background-color: rgba(255, 100, 100, 0.3);
+  opacity: 0.7;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sticky-pink {
+  background-color: #fce4ec;
+}
+.sticky-blue {
+  background-color: #e3f2fd;
+}
+.sticky-green {
+  background-color: #e8f5e9;
+}
+
+/* === Hand-drawn Border Radius === */
+.rounded-hand {
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.rounded-hand-sm {
+  border-radius: 125px 10px 115px 10px / 10px 115px 10px 125px;
+}
+
+/* === Hand Card === */
+.hand-card {
+  position: relative;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  border: 3px solid #1f2937;
+  background-color: #fffaf3;
+  transition: all 0.3s ease;
+  box-shadow: 6px 6px 0px #1f2937;
+}
+
+.hand-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px #1f2937;
+}
+
+/* === Washi Tape === */
+.washi-tape {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  background-color: rgba(255, 100, 100, 0.3);
+  opacity: 0.8;
+  border-radius: 2px;
+  transform: rotate(-3deg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.washi-blue {
+  background-color: rgba(100, 149, 237, 0.3);
+}
+.washi-green {
+  background-color: rgba(144, 238, 144, 0.3);
+}
+.washi-yellow {
+  background-color: rgba(255, 235, 59, 0.3);
+}
+
+/* === Scribble Underline === */
+.scribble-underline {
+  background-image: url("data:image/svg+xml,%3Csvg width='300' height='12' viewBox='0 0 214 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 10C41 4 79 4 118 6c39 2 58-3 94-4' fill='none' stroke='%23fb7185' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1em;
+}
+
+/* === Chat Bubbles Studygram Style === */
+.chat-bubble-user {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+  border: 2px solid #f48fb1;
+  border-radius: 20px 20px 5px 20px;
+  box-shadow: 2px 2px 8px rgba(244, 143, 177, 0.3);
+}
+
+.chat-bubble-assistant {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border: 2px solid #90caf9;
+  border-radius: 20px 20px 20px 5px;
+  box-shadow: 2px 2px 8px rgba(144, 202, 249, 0.3);
+}
+
+/* === Paper Card === */
+.paper-card {
+  background-color: #fffaf3;
+  border: 2px solid #d7c2a8;
+  border-radius: 16px;
+  box-shadow: 4px 4px 0 rgba(215, 194, 168, 0.5);
+}
+
+/* === Button Styles === */
+.btn-hand {
+  font-family: "Mali", cursive;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 3px solid #1f2937;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: #fff9c4;
+  color: #1f2937;
+  box-shadow: 4px 4px 0 #1f2937;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-hand:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1f2937;
+}
+
+.btn-hand:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #1f2937;
+}
+
+.btn-hand-pink {
+  background-color: #fce4ec;
+  border-color: #f48fb1;
+  box-shadow: 4px 4px 0 #f48fb1;
+}
+
+.btn-hand-blue {
+  background-color: #e3f2fd;
+  border-color: #64b5f6;
+  box-shadow: 4px 4px 0 #64b5f6;
+}
+
+/* === Input Styles === */
+.input-paper {
+  font-family: "Patrick Hand", cursive;
+  background-color: #fffaf3;
+  border: 2px dashed #d7c2a8;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: #1f2937;
+  transition: all 0.2s ease;
+}
+
+.input-paper:focus {
+  outline: none;
+  border-color: #f48fb1;
+  border-style: solid;
+  box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.2);
+}
+
+.input-paper::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* === Scrollbar Studygram === */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f9f0e5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f8bbd9, #bbdefb);
+  border-radius: 10px;
+  border: 2px solid #f9f0e5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f48fb1, #90caf9);
+}
+
+/* === Animations === */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+.animate-wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}
+.animate-pop {
+  animation: pop 0.3s ease-out;
+}
+
+/* === Decorative Elements === */
+.doodle-star::before {
+  content: "✨";
+  margin-right: 0.25em;
+}
+
+.doodle-heart::before {
+  content: "💕";
+  margin-right: 0.25em;
+}
+
+.doodle-flower::before {
+  content: "🌸";
+  margin-right: 0.25em;
+}
+
+/* ===== DARK MODE VARIANTS ===== */
+
+/* Dark mode - Paper card */
+.dark .paper-card {
+  background-color: #16213e;
+  border-color: #533483;
+  box-shadow: 4px 4px 0 rgba(83, 52, 131, 0.5);
+}
+
+/* Dark mode - Sidebar */
+.dark .dark\:bg-dark-surface {
+  background-color: #16213e;
+}
+
+/* Dark mode - Sticky notes */
+.dark .sticky-note {
+  background-color: #3d3d1a;
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .sticky-yellow,
+.dark .bg-sticky-yellow {
+  background-color: #3d3d1a !important;
+}
+
+.dark .sticky-pink,
+.dark .bg-sticky-pink {
+  background-color: #3d1a2e !important;
+}
+
+.dark .sticky-blue,
+.dark .bg-sticky-blue {
+  background-color: #1a2e3d !important;
+}
+
+.dark .sticky-green,
+.dark .bg-sticky-green {
+  background-color: #1a3d2e !important;
+}
+
+/* Dark mode - Chat bubbles */
+.dark .chat-bubble-user {
+  background: linear-gradient(135deg, #831843 0%, #9d174d 100%);
+  border-color: #be185d;
+  color: #fce7f3;
+}
+
+.dark .chat-bubble-assistant {
+  background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+  border-color: #0284c7;
+  color: #e0f2fe;
+}
+
+/* Dark mode - Buttons */
+.dark .btn-hand {
+  background-color: #3d3d1a;
+  color: #e2e8f0;
+  border-color: #6b7280;
+  box-shadow: 4px 4px 0 #6b7280;
+}
+
+.dark .btn-hand-pink {
+  background-color: #831843;
+  border-color: #be185d;
+  box-shadow: 4px 4px 0 #be185d;
+  color: #fce7f3;
+}
+
+.dark .btn-hand-blue {
+  background-color: #0c4a6e;
+  border-color: #0284c7;
+  box-shadow: 4px 4px 0 #0284c7;
+  color: #e0f2fe;
+}
+
+/* Dark mode - Input */
+.dark .input-paper {
+  background-color: #1e293b;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.dark .input-paper:focus {
+  border-color: #f472b6;
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2);
+}
+
+.dark .input-paper::placeholder {
+  color: #64748b;
+}
+
+/* Dark mode - Text colors */
+.dark .text-ink-primary {
+  color: #e2e8f0;
+}
+
+.dark .text-ink-secondary {
+  color: #94a3b8;
+}
+
+/* Dark mode - Borders */
+.dark .border-dot-grid {
+  border-color: #475569;
+}
+
+/* Dark mode - Scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #be185d, #0284c7);
+  border-color: #1a1a2e;
+}
+
+/* Dark mode - Washi tape (more vibrant) */
+.dark .washi-tape {
+  background-color: rgba(255, 100, 100, 0.5);
+}
+
+.dark .washi-blue {
+  background-color: rgba(100, 149, 237, 0.5);
+}
+
+/* Dark mode - Paper background */
+.dark .bg-paper-white {
+  background-color: #1e293b !important;
+}
+
+.dark .bg-paper-cream {
+  background-color: #1a1a2e !important;
+}
+
+/* Dark mode - Dot grid */
+.dark .dot-grid {
+  background-image: radial-gradient(#475569 0.9px, transparent 0.9px);
+}
+
+/* ===== TYPING INDICATOR ANIMATION ===== */
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes thinking {
+  0% {
+    content: "🌸";
+  }
+  25% {
+    content: "✨";
+  }
+  50% {
+    content: "💭";
+  }
+  75% {
+    content: "💕";
+  }
+  100% {
+    content: "🌸";
+  }
+}
+
+.typing-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f472b6, #22d3ee);
+  animation: typing-bounce 1.2s infinite;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.thinking-emoji {
+  animation: sparkle 1s infinite;
+}
+
+/* ===== MESSAGE REACTIONS ===== */
+.reaction-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.reaction-btn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.reaction-btn.active {
+  background-color: #fce4ec;
+  border-color: #f48fb1;
+}
+
+.dark .reaction-btn {
+  background-color: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .reaction-btn:hover {
+  background-color: rgba(51, 65, 85, 0.9);
+}
+
+.dark .reaction-btn.active {
+  background-color: #831843;
+  border-color: #be185d;
+}
+
+.reaction-popup {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.reaction-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.dark .reaction-popup {
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Bookmark style */
+.bookmark-btn {
+  position: absolute;
+  top: -4px;
+  right: 8px;
+  width: 20px;
+  height: 28px;
+  background: #f59e0b;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.bookmark-btn:hover {
+  transform: translateY(-2px);
+}
+
+.bookmark-btn.active {
+  opacity: 1;
+  background: #ef4444;
+}
+
+.message-wrapper:hover .bookmark-btn {
+  opacity: 0.6;
+}
+
+.message-wrapper:hover .bookmark-btn.active {
+  opacity: 1;
+}

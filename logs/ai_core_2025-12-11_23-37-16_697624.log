@@ -1,0 +1,6 @@
+2025-12-11 23:37:17.025 | INFO     | ai_core:__init__:85 - 🔥 PyTorch device: cpu
+2025-12-11 23:37:17.185 | INFO     | ai_core:__init__:93 - ✅ AI Service initialized successfully
+2025-12-11 23:37:35.514 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:37:36.255 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 0.74s
+2025-12-11 23:37:50.254 | INFO     | ai_core:get_response:166 - 🤖 Generating response | Persona: Isshiki Iroha | Temp: 0.85
+2025-12-11 23:37:51.091 | SUCCESS  | ai_core:get_response:198 - ✅ Response generated in 0.85s

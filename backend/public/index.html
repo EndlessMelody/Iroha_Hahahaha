@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iroha Chat</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #161920;
+      --accent: #5cc4ff;
+      --text: #e6e8ee;
+      --muted: #9aa0ad;
+      --border: #252a33;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+    .app {
+      width: min(960px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 12px; font-size: 22px; }
+    .desc { color: var(--muted); margin-bottom: 16px; }
+    .row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    select, input, button {
+      background: #1f2430;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button { cursor: pointer; border: 1px solid var(--accent); color: var(--text); }
+    button:hover { background: #223040; }
+    textarea { width: 100%; min-height: 70px; background: #1b1f29; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px; resize: vertical; }
+    .chat-box { background: #1b1f29; border: 1px solid var(--border); border-radius: 12px; padding: 12px; height: 360px; overflow-y: auto; margin-bottom: 12px; }
+    .bubble { margin-bottom: 12px; }
+    .bubble .role { font-weight: 600; color: var(--accent); }
+    .meta { color: var(--muted); font-size: 12px; }
+    .toggle { display: flex; align-items: center; gap: 6px; }
+    .audio-ctrl { display: flex; align-items: center; gap: 10px; }
+    .ghost { border: 1px solid var(--border); background: #1f2430; }
+    .player { width: 260px; background:#1f2430; border:1px solid var(--border); border-radius:8px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>Iroha Chat</h1>
+    <div class="desc">Chat with Iroha. She replies in text and can speak using Groq PlayAI TTS.</div>
+    <div class="row">
+      <div class="toggle">
+        <label for="voiceSelect">Voice</label>
+        <select id="voiceSelect"></select>
+      </div>
+      <div class="toggle">
+        <label for="speed">Speed</label>
+        <input id="speed" type="range" min="0.5" max="2" step="0.05" value="1.05" />
+        <span id="speedVal">1.05</span>
+      </div>
+      <div class="toggle">
+        <input id="textOnly" type="checkbox" />
+        <label for="textOnly">Text only</label>
+      </div>
+    </div>
+
+    <div class="chat-box" id="chatBox"></div>
+
+    <textarea id="message" placeholder="Type your message..."></textarea>
+    <div class="row">
+      <button id="sendBtn">Send</button>
+      <button id="clearBtn" class="ghost">Clear</button>
+      <div class="audio-ctrl">
+          <audio id="player" controls class="player"></audio>
+      </div>
+    </div>
+    </div>
+    <div class="meta" id="status"></div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const msgInput = document.getElementById('message');
+    const sendBtn = document.getElementById('sendBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const statusEl = document.getElementById('status');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const speedSlider = document.getElementById('speed');
+    const speedVal = document.getElementById('speedVal');
+    const textOnly = document.getElementById('textOnly');
+    const player = document.getElementById('player');
+
+    let history = [];
+
+    function addBubble(role, text) {
+      const div = document.createElement('div');
+      div.className = 'bubble';
+      div.innerHTML = `<div class="role">${role}</div><div>${text}</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg || '';
+    }
+
+    async function loadVoices() {
+      try {
+        const res = await fetch('/voice/groq/config');
+        const cfg = await res.json();
+        voiceSelect.innerHTML = '';
+        Object.keys(cfg.voices).forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = `${v} — ${cfg.voices[v]}`;
+          if (v === cfg.default_voice) opt.selected = true;
+          voiceSelect.appendChild(opt);
+        });
+        speedSlider.min = cfg.speed_min ?? 0.5;
+        speedSlider.max = cfg.speed_max ?? 2.0;
+        speedSlider.value = cfg.default_speed ?? 1.05;
+        speedVal.textContent = speedSlider.value;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    speedSlider.addEventListener('input', () => {
+      speedVal.textContent = speedSlider.value;
+    });
+
+    clearBtn.addEventListener('click', () => {
+      history = [];
+      chatBox.innerHTML = '';
+      player.src = '';
+      setStatus('History cleared');
+    });
+
+    async function fetchChat(message) {
+      const payload = { message, persona: 'iroha', history };
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Chat request failed');
+      return res.json();
+    }
+
+    async function fetchTTS(text, voice, speed) {
+      const res = await fetch('/voice/groq/stream?text=' + encodeURIComponent(text) + '&voice=' + encodeURIComponent(voice) + '&speed=' + encodeURIComponent(speed), {
+        method: 'POST'
+      });
+      if (!res.ok) throw new Error('TTS request failed');
+      const buf = await res.arrayBuffer();
+      return new Blob([buf], { type: 'audio/wav' });
+    }
+
+    async function handleSend() {
+      const msg = msgInput.value.trim();
+      if (!msg) return;
+      msgInput.value = '';
+      addBubble('You', msg);
+      setStatus('Thinking...');
+      try {
+        const chat = await fetchChat(msg);
+        history = chat.metadata?.history ?? [...history, { role: 'user', content: msg }, { role: 'assistant', content: chat.response }];
+        addBubble('Iroha', chat.response);
+        setStatus(`Response time: ${chat.metadata?.duration_seconds ?? ''}s`);
+        if (textOnly.checked) return;
+        setStatus('Generating voice...');
+        const blob = await fetchTTS(chat.response, voiceSelect.value, speedSlider.value);
+        player.src = URL.createObjectURL(blob);
+        player.play();
+        setStatus('');
+      } catch (e) {
+        console.error(e);
+        setStatus('Error: ' + e.message);
+      }
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    msgInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+
+    loadVoices();
+  </script>
+</body>
+</html>
